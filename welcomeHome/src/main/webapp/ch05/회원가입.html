@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <table>
+        <hr>
+        <caption>회원가입</caption>
+    </hr>
+        <tbody>
+            <tr>
+                <td>* 아이디</td>
+                <td><input type="text" name="id" size="14" required> <input type="button" value="중복확인"></td>
+            </tr>
+            <tr>
+                <td rowspan="2">* 비밀번호</td>
+                <td><input type="password" name="pw" size="25" required></td>
+            </tr>
+            <tr>
+                <td><input type="password" name="pw" size="25" placeholder="비밀번호 재확인" required></td>
+            </tr>
+            <tr>
+                <td>* 이름</td>
+                <td><input type="text" name="name" size="25" required></td>
+            </tr>
+            <tr>
+                <td rowspan="3">* 주소</td>
+                <td><input type="text" name="address" size="3" required>-
+                    <input type="text" name="address" size="3" required>
+                    <input type="button" value="우편번호"> </td>
+            </tr>
+            <tr>
+                <td><input type="text" name="address" size="25" required></td>
+            </tr>
+            <tr>
+                <td><input type="text" name="address" size="25" required></td>
+            </tr>
+            <tr>
+                <td>* 휴대전화</td>
+                <td><select name="number">
+                        <option value="1" selected>010</option>
+                        <option value="2">011</option>
+                        <option value="2">02</option>
+                        <option value="2">054</option>
+                    </select> <input type="text" name="number" size="6" required>
+                    <input type="text" name="number" size="6" required></td>
+            </tr>
+            <tr>
+                <td>* 전화번호</td>
+                <td><select name="number2">
+                        <option value="1" selected>053</option>
+                        <option value="2">054</option>
+                        <option value="2">031</option>
+                        <option value="2">070</option>
+                    </select> <input type="text" name="number2" size="6">
+                    <input type="text" name="number2" size="6"></td>
+            </tr>
+            <tr>
+                <td>* 이메일</td>
+                <td><input type="text" name="email" size="12" placeholder="ABCDEFG" required>
+                    <select name="email">
+                        <option value="1" selected>naver.com</option>
+                        <option value="2">daum.net</option>
+                        <option value="3">google.com</option>
+                        <option value="4">hanmail.net</option>
+                    </select></td>
+            </tr>
+            <tr>
+                <td rowspan="2">* 생년월일</td>
+                <td><input type="radio" name="birth" value="did" cheked>양
+                    <input type="radio" name="birth" value="dma" cheked>음</td>
+            </tr>
+            <tr>
+                <td><select name="year">
+                    <option value="1" selected>1997</option>
+                    <option value="2">1996</option>
+                    <option value="2">1995</option>
+                    <option value="2">1994</option>
+                </select>
+                <select name="month">
+                    <option value="1" selected>06</option>
+                    <option value="2">05</option>
+                    <option value="2">04</option>
+                    <option value="2">03</option>
+                </select>
+                <select name="date">
+                    <option value="1" selected>10</option>
+                    <option value="2">09</option>
+                    <option value="2">08</option>
+                    <option value="2">07</option>
+                </select></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>
