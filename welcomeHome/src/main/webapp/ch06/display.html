@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="myStyle.css"> <!--외부 스타일시트-->
+    <style>
+        span{
+             display: inline-block;/* none -> 태그는 존재하지만 공간 차지하지 않음. */
+            border-width: 1px;
+            border-color: red;
+            border-style: double;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+            /* 한번에 지정 -- 위, 오른쪽, 아래, 왼쪽 순서. */
+            /* 모두 똑같으면 한번만 적어주면 됨. */
+            margin: 5px 10px 5px 10px;
+            background-color: rgb(185, 241, 255);
+            color: rgb(255, 67, 67);
+        }
+        
+        div{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <!-- inline level -->
+    <span>Hello1</span> 
+    <span style="border-style: dotted;">Hello2</span>
+    <span>Hello3</span>
+
+    <!-- block level (block => 한 라인 모두 차지.)-->
+    <div>World1</div>
+    <div>World2</div>
+    <div>World3</div>
+
+    <p>안녕하세요!</p>
+</body>
+</html>

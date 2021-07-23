@@ -1,0 +1,18 @@
+p {
+    color: rgb(143, 75, 253);
+}
+h2{
+    background-color: rgb(253, 232, 232);
+}
+/* id값 불러올땐 # 붙이기. */
+h2#show{
+    color: rgb(243, 61, 88);
+}
+/* class명으로 값 불러올땐 . 붙이기 */
+.show{
+    font-size: 50px;
+}
+/* []안엔 속성 넣기. */
+input[type='submit']{
+    width: 100px;
+}

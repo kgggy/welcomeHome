@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch06/position.html</title>
+    <style>
+        div {
+            background-color: rgb(243, 243, 169);
+        }
+
+        /* 기본은 static(고정) relative=>상대적으로 기준값 변경. absolute=>태그 기준 fixed =>페이지 기준 (p.247) */
+        p {
+            position: static;
+            width: 100px;
+            background-color: rgb(87, 175, 113);
+            margin: 10px 0;
+            height: 30px;
+        }
+
+        p.content {
+            position: relative;
+            left: 80px;
+        }
+
+        p.content1 {
+            position: fixed;
+            left: 50px;
+            top: 30px;
+        }
+
+        p.content2 {
+            position: sticky;
+            left: 150px;
+            top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p class="content">Content-4</p>
+        <p>Content-5</p>
+        <p class="content1">Content-6</p>
+        <p>Content-7</p>
+        <p class="content2">Content-8</p>
+        <p>Content-9</p>
+        <p>Content-10</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+        <p>Content-1</p>
+        <p>Content-2</p>
+        <p>Content-3</p>
+
+    </div>
+
+</body>
+
+</html>

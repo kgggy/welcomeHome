@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch06/combinator.html</title>
+</head>
+<style>
+    div>h2.favorite {
+        color: red;
+    }
+
+    div>h2 {
+        color: rgb(250, 164, 178);
+    }
+
+    /* 자식도 포함한 자손요소 모두. */
+    div li:nth-of-type(2n+1) {
+        background-color: beige;
+    }
+
+    h2 {
+        color: mediumspringgreen;
+    }
+
+    /* h2의 형제 중 h3 */
+    h2~h3 {
+        border: 1px dotted red;
+    }
+
+    /* h2의 형제 중 바로 옆에 있는 h3 */
+    h2+h3 {
+        color: rgb(233, 209, 72);
+    }
+
+    h2,
+    h3,
+    ul,
+    li {
+        background-color: rgb(250, 219, 250);
+    }
+    /* !important => 순서 상관없이 고정. */
+    li {
+        background-color: yellow !important;
+    }
+    #best {
+        font-size: large;
+    }
+</style>
+
+<body>
+    <div>
+        <h2 class="favorite"></h2>
+    </div>
+    <div>
+        <h2 class='favorite'>Apple</h2>
+        <h2>peach</h2>
+        <h3>Banana</h3>
+        <h3>grape</h3>
+        <ul id="best">
+            <li>Cherry</li>
+            <li>Mango</li>
+            <li>Strawberry</li>
+            <li>Orange</li>
+        </ul>
+    </div>
+    <h2 class='favorite'>Melon</h2>
+</body>
+
+</html>

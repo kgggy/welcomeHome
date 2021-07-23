@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch06/pseudo.html : 가상선택자.</title>
+</head>
+<style>
+    a{
+        font-weight: 900;
+    }
+    a:active{
+        color:rgb(14, 187, 121);
+    }
+    a:hover{
+        background-color: yellow;
+    }
+    /* 한번 방문 후에는 색 바뀜(p.212) */
+    a:visited{
+        color: cornflowerblue;
+    }
+   input[type='checkbox']:checked{
+      background: cyan;
+       width: 100px;
+   }
+</style>
+<body>
+    <input type="checkbox" name="" id="" checked>가입여부
+    <a href="http://www.daum.net">daum</a>
+</body>
+</html>

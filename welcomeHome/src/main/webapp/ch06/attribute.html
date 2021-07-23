@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ch06/attribute.html</title>
+    <style>
+        p[text='hello'] {
+            font-size: 19px;
+        }
+        /* (시작 ^ 마지막 $ 포함 * (공란으로 구분되어있으면 구분하여 인식 ~)(p.211))*/
+        p[text^='img'] {
+            color: lightsalmon;
+        }
+        /* , -> or /// [][] -> and */
+        p[text*='a'],  p[text$='g'] {
+            background-color: lightyellow;
+        }
+        p[text~='aa'] {
+            color: magenta;
+        }
+        p[text*='google']{
+            background-color: orange;
+        }
+    </style>
+</head>
+<body>
+    <p text='hello'>텍스트1</p>
+    <p text='red'>텍스트2</p>
+    <p text='https://www.naver.com'>텍스트3</p>
+    <p text='http://www.daum.net'>텍스트4</p>
+    <p text='https://google.com'>텍스트5</p>
+    <p text='img/pic.png'>텍스트6</p>
+    <p text='Seongyong Hong'>텍스트7</p>
+</body>
+</html>
