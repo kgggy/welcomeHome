@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript/whatToDo.html</title>
+</head>
+
+<body>
+    <img src="https://www.w3schools.com/js/pic_bulboff.gif" alt="">
+    <button onclick='turnOn()'>TurnOn</button>
+    <button onclick='turnOff()'>TurnOff</button>
+
+    <script>
+        function turnOn() {
+            let img = document.getElementsByTagName('img')[0]; //이미지 변수 선언 => let //첫번째 이미지태그를 가져오겠다.
+            img.src = "https://www.w3schools.com/js/pic_bulbon.gif"; //버튼을 누르면 첫번째 img태그의 src속성의 링크를 바꿈.
+        }
+        function turnOff(){
+            let img = document.getElementsByTagName('img')[0];
+            img.src="https://www.w3schools.com/js/pic_bulboff.gif";
+        }
+    </script>
+</body>
+
+</html>
