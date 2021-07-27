@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript/function3.html</title>
+</head>
+
+<body>
+    <p>내용1</p>
+    <p>내용2</p>
+    <p>내용3</p>
+    <p>내용4</p>
+    <p>내용5</p>
+
+    <script>
+        let bodies = document.getElementsByTagName('body');
+        console.log(bodies[0].children[0].innerHTML);
+        console.log(bodies[0].childNodes[1].innerHTML);
+        console.log(this);
+        let pTag = document.getElementsByTagName('p'); //HTMLCollection타입.
+        pTag = document.querySelectorAll('p') //NodeList타입.
+        console.log(pTag);
+        for (let i = 0; i < pTag.length; i++) {
+            pTag[i].onclick = clickFunc;
+            // window.alert(pTag[i].innerHTML); //innerHTML => text를 가져옴.
+            // //childNodes => text까지 Node에 포함, children => text는 포함하지 않음.
+            // console.log(pTag[i].childNodes[0].nodeValue); //ptag의 자식 중 첫번째 자식의 value를 가져옴.
+            // console.log(pTag[i].firstChild.nodeValue); // firstChild = childNodes[0]
+            pTag[i].onmouseover = mover;
+            // pTag[i].onmouseout = mout;
+            pTag[i].addEventListener('mouseout', mout); //(이벤트이름, 실행할function)
+            pTag[i].addEventListener('mouseout', mout2);
+            pTag[i].removeEventListener('mouseout', mout);
+        }
+
+        function mout2() {
+            console.log(this);
+        }
+
+        function mover() {
+            this.style.color = 'red';
+        }
+
+        function mout() {
+            this.style.color = 'gray';
+        }
+
+        function clickFunc() {
+            window.alert(this.innerHTML);
+            console.log(this.childNodes[0].nodeValue);
+            console.log(this.firstChild.nodeValue);
+            console.log(this.children[0]);
+        }
+    </script>
+</body>
+
+</html>

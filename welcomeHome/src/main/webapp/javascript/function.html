@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>javascript/function.html</title>
+    <!-- <script src="js/function.js"></script> -->
 </head>
 
 <body>
@@ -16,31 +17,57 @@
     <button onclick="cal()">계산하기</button>
 
     <script>
-        function cal() {
-            let num1 = document.getElementById('num1');
-            let num2 = document.getElementById('num2');
-            console.log(Number(num1.value) + Number(num2.value));
-            let result = document.getElementById('result');
-            // result.value = sum(Number(num1.value), Number(num2.value));
-            result.value = fnc(Number(num1.value), Number(num2.value));
+        function newFunc(args, args2) {
+            console.log('newFunc(' + args + ', ' + args2 + ')');
+            // let ary = [args, args2];
+            // let obj = {
+            //     name: args, //값 => 필드 역할.
+            //     age: args2,
+            //     showInfo: function() { //기능 => 메소드 역할.
+            //         return '이름: ' + this.name + ', 나이: ' + this.age;
+            //     }
+            // }; //key, value형식으로 리턴하고싶으면 object형식.
+            // //return args + ',' + args2; //리턴 해주고싶으면 그냥 return구문 적어주면됨.
+            // //return ary; 
+            //return obj;
+            let str = '<li>' + args + ', ' + args2 + '</li>';
+            return str;
         }
+        document.write('<ul>');
+        let result = newFunc('Hong', 12);
+        document.write(result);
+        document.write(newFunc('Hwang', '20'));
+        document.write('</ul>');
 
-        console.log('function정의 전: ' + sum(10, 20));
-        //console.log('function정의 전: ' + fnc(10, 20)); //변수는 정의->실행의 순서 지켜줘야함.
+        // function makeList(){
+        //     let str = '<li id="id1">Hello</li>'; //node => tag(element) 하나를 세부적으로 구분하기위한 용어.
+        //     //node가 세개 있음.(li, id, Hello(자식node))
+        //     let li = document.createElement('li'); //태그 생성
+        //     li.setAttribute('id', 'id1');//attribute node를 추가.(속성추가)
+        //     let text = document.createTextNode('Hello');//textNode를 생성.
+        //     li.appendChild(text); //<li>태그에 text태그를 넣음(<li>Hello</li>형태)
 
-        let fnc = function (a, b) {
-            return a + b;
+        //     return li; //'<li id="id1">Hello</li>'
+        // }
+        // let ul = document.getElementsByTagName('ul'); //ul태그를 찾아줌.
+        //     ul[0].appendChild(makeList()); //li태그를 가지고온 ul태그 중 첫번째에 넣음.
+        //     ul[0].appendChild(makeList());
+
+        
+        function makeList(arg){
+            let str = '<li id="id1">Hello</li>'; //node => tag(element) 하나를 세부적으로 구분하기위한 용어.
+            //node가 세개 있음.(li, id, Hello(자식node))
+            let li = document.createElement('li'); //태그 생성
+            li.setAttribute('id', 'id1');//attribute node를 추가.(속성추가)
+            let text = document.createTextNode(arg);//textNode를 생성.
+            li.appendChild(text); //<li>태그에 text태그를 넣음(<li>Hello</li>형태)
+
+            return li; //'<li id="id1">Hello</li>'
         }
-        console.log(fnc(10, 20));
-
-        function sum(num1, num2) { //function => 위로 끌어올려져 가장 처음 읽어줌. => 선언 전에 호출해도 상관없음.
-            //hoisting: function정의문을 끌어올림.
-            return num1 + num2;
-        }
-        let result = sum(10, 20);
-        console.log(result);
-        result = sum('Hello', 'World');
-        console.log(result);
+        let ul = document.getElementsByTagName('ul'); //ul태그를 찾아줌.
+            ul[0].appendChild(makeList('hello')); //li태그를 가지고온 ul태그 중 첫번째에 넣음.
+            ul[0].appendChild(makeList('world'));
+        //console.log(typeof result, result, result.showInfo());
     </script>
 </body>
 
