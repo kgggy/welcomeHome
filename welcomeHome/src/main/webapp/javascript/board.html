@@ -20,7 +20,7 @@
         #list th {
             font-size: 12px;
             border: 1px solid rgb(255, 255, 255);
-            padding: 3px;
+            padding: 5px;
         }
 
         #list th {
@@ -33,95 +33,102 @@
         }
 
         #list .td2 {
-            width: 150px;
+            width: 300px;
             text-align: center;
         }
 
         #list .td3 {
-            width: 50px;
+            width: 250px;
             text-align: center;
         }
 
         #list .td4 {
-            width: 50px;
+            width: 100px;
             text-align: center;
         }
 
         #list .td5 {
-            width: 5px;
+            width: 100px;
             text-align: center;
         }
 
         /*부모 자식 관계 */
         #list .altRow {
             background-color: #e0f0b5;
+            text-align: center;
         }
+        /* #list .altRow:nth-child(odd) {
+            background-color: #e0f0b5;
+            text-align: center;
+        } */
+        /* #list .altRow:nth-child(even) {
+            background-color: white;
+            text-align: center;
+        } */
     </style>
-
-    <script>
-        function createTr(num, title, writer, regDate) {
-
-        let trTag = document.createElement('tr');
-        trTag.setAttribute('class', 'altRow'); 
-        
-        let tdTag = document.createElement('td');
-        let numText = document.createTextNode(num);
-        trTag.appendChild(tdTag);
-
-        return trTag;
-    }
-    </script>
 
 </head>
 
 <body>
-
-    <!-- Ex21_board.htm -->
-
-    <form action="">
-        번호: <input type="number" name="" id="">
-        제목: <input type="text" name="" id="">
-        이름: <input type="text" name="" id="">
-        날짜: <input type="date" name="" id="">
+<div id="inputForm"> <!-- div => form태그를 감싸고 있는 역할. -->
+    <form name='frm' action="aaa.html" onsubmit="submitFnc(event)">
+        번호: <input type="number" name="num" id="num" value="5" ><br>
+        제목: <input type="text" name="title" id="title" value="제목"><br>
+        이름: <input type="text" name="writer" id="writer" value="권가영"><br>
+        날짜: <input type="date" name="regDate" id="regDate" value="2021-07-28"><br>
+        <input type="submit" value="게시">
+        <input type="button" value="수정">
     </form>
+</div>
+<p></p>
 
     <h3>게시판 리스트</h3>
+    <button id="delBtn">선택삭제</button>
     <table id="list">
-        <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>이름</th>
-            <th>날짜</th>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>이름</th>
+                <th>날짜</th>
+                <th>선택</th>
+            </tr>
+        </thead>
+
+        <tr id='1'>
+            <td class="td1">1</td>
+            <td class="td2">게시판 만들기 연습입니다.1</td>
+            <td class="td3">홍길동1</td>
+            <td class="td4">2012-01-04</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr class="altRow" id="2">
+            <td class="td1">2</td>
+            <td class="td2">게시판 만들기 연습입니다.2</td>
+            <td class="td3">홍길동2</td>
+            <td class="td4">2012-01-01</td>
+            <td><input type="checkbox"></td>
+
         </tr>
 
-        <tr>
-            <td class="td1">55</td>
-            <td class="td2">게시판 만들기 연습입니다.</td>
-            <td class="td3">홍길동</td>
-            <td class="td4">2012년 1월 5일</td>
+        <tr id="3">
+            <td class="td1">3</td>
+            <td class="td2">게시판 만들기 연습입니다.3</td>
+            <td class="td3">홍길동3</td>
+            <td class="td4">2012-01-02</td>
+            <td><input type="checkbox"></td>
         </tr>
-        <tr class="altRow">
-            <td class="td1">56</td>
-            <td class="td2">게시판 만들기 연습입니다.</td>
-            <td class="td3">홍길동</td>
-            <td class="td4">2012년 1월 5일</td>
-
-        </tr>
-
-        <tr>
-            <td class="td1">5</td>
-            <td class="td2">게시판 만들기 연습입니다.</td>
-            <td class="td3">홍길동</td>
-            <td class="td4">2012년 1월 5일</td>
-        </tr>
-        <tr class="altRow">
-            <td class="td1">5</td>
-            <td class="td2">게시판 만들기 연습입니다.</td>
-            <td class="td3">홍길동</td>
-            <td class="td4">2012년 1월 5일</td>
+        <tr class="altRow" id="4">
+            <td class="td1">4</td>
+            <td class="td2">게시판 만들기 연습입니다.4</td>
+            <td class="td3">홍길동4</td>
+            <td class="td4">2012-01-03</td>
+            <td><input type="checkbox"></td>
         </tr>
 
     </table>
+
+    <script src="js/board.js"></script>
 
 </body>
 

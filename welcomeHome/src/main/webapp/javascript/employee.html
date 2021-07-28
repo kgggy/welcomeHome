@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript/employee.html</title>
+    <script>
+        let jsonData = `[
+{"id":1,"first_name":"Giffard","last_name":"Lettuce","email":"glettuce0@over-blog.com","gender":"Genderqueer"},
+{"id":2,"first_name":"Toby","last_name":"Dyet","email":"tdyet1@prweb.com","gender":"Polygender"},
+{"id":3,"first_name":"Aubrette","last_name":"Haensel","email":"ahaensel2@prlog.org","gender":"Agender"},
+{"id":4,"first_name":"Dana","last_name":"Skirlin","email":"dskirlin3@eepurl.com","gender":"Polygender"},
+{"id":5,"first_name":"Alaric","last_name":"Darlison","email":"adarlison4@deliciousdays.com","gender":"Agender"},
+{"id":6,"first_name":"Denver","last_name":"O'Gorman","email":"dogorman5@goo.ne.jp","gender":"Female"},
+{"id":7,"first_name":"Rafaello","last_name":"Blas","email":"rblas6@wikispaces.com","gender":"Genderfluid"},
+{"id":8,"first_name":"Massimo","last_name":"Schwier","email":"mschwier7@google.com.br","gender":"Genderfluid"},
+{"id":9,"first_name":"Taryn","last_name":"O'Ruane","email":"toruane8@istockphoto.com","gender":"Genderqueer"},
+{"id":10,"first_name":"Imojean","last_name":"Buske","email":"ibuske9@sina.com.cn","gender":"Agender"}
+]`
+
+        console.log(jsonData);
+        let objData = JSON.parse(jsonData);
+        console.log(objData);
+
+        document.addEventListener('DOMContentLoaded', function () { //페이지가 모두 읽어진 다음 기능 실행하도록 함.(id 찾기위해.)
+            // let ul = document.createElement('ul'); //태그생성.
+            let tbody = document.querySelector('#list > tbody');
+
+            for (let i = 0; i < objData.length; i++) {
+                // console.log(objData[i].last_name)
+                // let li = document.createElement('li');
+                // li.onclick = function () {
+                //     window.alert(this.innerHTML)
+                // };
+                // li.addEventListener('mouseover', function () {
+                //     this.style.backgroundColor = 'red';
+                //     this.style.color = 'white';
+                // })
+
+                // let text = document.createTextNode(objData[i].last_name);
+                // li.appendChild(text);
+                // ul.appendChild(li);
+
+                //<tr><td>id</td><td>first_name</td>....</td></tr>
+                let tr = document.createElement('tr');
+                //필드의 갯수만큼 반복할 때 for..in 반복문 사용.
+                for (let field in objData[0]) {
+                    let td = document.createElement('td');
+                    let text = document.createTextNode(objData[i][field]);
+                    td.appendChild(text);
+                    tr.appendChild(td);
+                }
+
+                //삭제버튼 생성.
+                let td = document.createElement('td');
+                let btn = document.createElement('input');
+                btn.type = 'button'; //btn,setAttribute('type', 'button')과 같음.
+                btn.value = '삭제';
+                td.appendChild(btn);
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            }
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="show">
+        <table id='list'>
+            <thead>
+                <tr>
+                    <th>사원번호</th>
+                    <th>성</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>성별</th>
+                    <th>삭제기능</th>
+                    <!-- 삭제기능버튼 -->
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

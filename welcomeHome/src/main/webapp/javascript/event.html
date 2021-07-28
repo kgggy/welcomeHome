@@ -22,7 +22,7 @@
 
     <script>
         function submitFnc(e) {
-           e.preventDefault(); //submit의 기본 기능을 차단. => 페이지 안넘어가도록함.
+           e.preventDefault(); //form태그의 기본 기능을 차단. => 페이지 안넘어가도록함.
             if (document.frm.name.value == '') { //값을 안넣었을 경우.
                 alert('이름을 입력하세요!')
                 document.frm.name.focus();
