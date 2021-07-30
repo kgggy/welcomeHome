@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>board/empList.html</title>
+</head>
+
+<body>
+    <script>
+        let div = document.createElement('div');
+        div.setAttribute('id', 'container');
+        let form = document.createElement('form');
+        form.setAttribute('action', '../EmpListServlet.do');
+        form.setAttribute('method', 'GET');
+        form.addEventListener('submit', function(evnt) {
+        	evnt.preventDefault();
+        	
+        	let url = this.getAttribute('action'); //this = form
+        	
+        	let xhtp = new XMLHttpRequest();
+        	xhtp.open('get', url);
+        	xhtp.send();
+        	xhtp.onload = function() {
+        		let data = JSON.parse(xhtp.responseText);
+        		console.log(data);
+        	}
+        });
+
+        let label1 = document.createElement('label');
+        label1.setAttribute('for', 'uid');
+        label1.innerHTML = '아이디:';
+        let input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', 'uid');
+        input.setAttribute('id', 'uid');
+        let br1 = document.createElement('br');
+
+
+        let label2 = document.createElement('label');
+        label2.setAttribute('for', 'upw');
+        label2.innerHTML = '비밀번호:';
+        let input1 = document.createElement('input');
+        input1.setAttribute('type', 'password');
+        input1.setAttribute('name', 'upw');
+        input1.setAttribute('id', 'upw');
+        let br2 = document.createElement('br');
+
+        let input2 = document.createElement('input');
+        input2.setAttribute('type', 'submit');
+        input2.setAttribute('value', '로그인');
+
+
+        div.appendChild(form);
+        form.append(label1, input, br1, label2, input1, br2, input2);
+        console.log(div);
+
+        //let form = document.querySelector('#container > form');
+        //form.submit();
+        
+        let body = document.getElementsByTagName('body');
+        body[0].appendChild(div);
+        //document.body.appendChild(div);
+    </script>
+</body>
+
+</html>

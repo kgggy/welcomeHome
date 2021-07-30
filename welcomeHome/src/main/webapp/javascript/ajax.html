@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>javascript/ajax.html</title>
     <link rel="stylesheet" href="ajax.css">
-    <script src="js/ajax.js"></script>
-   
+    <!-- <script src="js/ajax.js"></script> -->
+
 </head>
 
 <body>
@@ -18,8 +18,7 @@
         <strong>last_name</strong>
         <strong>email</strong>
     </div>
-    <div id="show">
-    </div>
+    <div id="show"></div>
 
     <div class="pagination">
         <button class='active'>1</button>
@@ -39,6 +38,68 @@
         <button>15</button>
         <button>16</button>
     </div>
+
+    <script>
+        function ajax(url, page) {
+            //기존에 있던 데이터를 화면에서 지워줌.
+            let divShow = document.querySelector('#show');
+            let cnt = divShow.children.length;
+            for (let i = 0; i < cnt; i++) {
+                divShow.removeChild(divShow.children[0]);
+            }
+
+            let startCnt, endCnt;
+            startCnt = (page - 1) * 10; //1페이지 인덱스가 0~9까지. 10~19....
+            endCnt = page * 10 - 1;
+
+            let xhtp = new XMLHttpRequest();
+            xhtp.open('get', url);
+            xhtp.send(); //해당 url 요청.
+            xhtp.onload = function () {
+                //console.log(xhtp); //---가져온 url의 responseText를 확인.
+                //console.log(JSON.parse(xhtp.responseText)); 
+                let showDiv = document.getElementById('show'); //div밑에 붙여넣을려고 호출함.
+                let data = JSON.parse(xhtp.responseText); //data는 배열형식.
+
+                let fData = data.filter(function (val, idx) {
+                    if (startCnt <= idx && idx <= endCnt) {
+                        return val;
+                    }
+                }).forEach(function (val, idx) {
+                    //span: id   strong:fn, ln, email
+                    console.log(val);
+                    let span = document.createElement('sapn');
+                    span.innerHTML = val.id;
+                    let strong1 = document.createElement('strong');
+                    strong1.innerHTML = val.first_name;
+                    let strong2 = document.createElement('strong');
+                    strong2.innerHTML = val.last_name;
+                    let strong3 = document.createElement('strong');
+                    strong3.innerHTML = val.email;
+                    let div = document.createElement('div');
+                    div.setAttribute('class', 'row');
+                    //div 하위요소로 span, strong1, strong2, strong3
+                    div.append(span, strong1, strong2, strong3);
+
+                    showDiv.appendChild(div);
+                });
+            } //end of xhtp.onload
+        } //end of ajax
+
+        ajax('MOCK_DATA2.json', 1); //데이터의 1페이지.(첫 화면에 첫 페이지 보여주도록.)
+        let btns = document.querySelectorAll('.pagination > button'); //pagination class 밑의 button태그들 호출.
+        for (let i = 0; i < btns.length; i++) {
+            btns[i].addEventListener('click', function () { //각 버튼에 클릭이벤트 달아줌.
+                //클릭이벤트 시 button의 클래스를 초기화해줌.(이전 classname 지워줌 => 버튼 색 바뀜.)
+                for (let i = 0; i < btns.length; i++) {
+                    btns[i].className = '';
+                }
+                this.className = 'active';
+                let page = this.innerHTML; //button들의 innerHTML(1,2,3,4...16)을 이용
+                ajax('MOCK_DATA2.json', page);
+            })
+        }
+    </script>
 </body>
 
 </html>

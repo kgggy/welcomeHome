@@ -22,6 +22,7 @@ function ajax(url, page) {
     let xhtp = new XMLHttpRequest(); //new Object(); (최상위 오브젝트인 object를 상속받음.)
     xhtp.open('get', url); //('페이지를 요청하는 방식', '요청하는 페이지')
     xhtp.send(); //페이지 요청 작업 시작.
+    
     xhtp.onreadystatechange = function () {
         if (xhtp.readyState == 4 && xhtp.status == 200) { //정상적으로 데이터 가져왔을 경우.
             // console.log(xhtp.response);
