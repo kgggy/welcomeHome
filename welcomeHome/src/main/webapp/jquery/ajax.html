@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery/ajax.html</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({ //$.ajax => 모든 메소드포함.
+                url: 'MOCK_DATA.json', //요청하는 페이지.
+                data: {
+                    page: 1
+                },
+                method: 'get', //요청방식.(default값은 get)
+                dataType: 'json', //parcing해줌.
+                //dataType: 'Text',
+                success: successCallBack, //요청페이지를 정상실행했을 경우.
+                error: function (reject) { //요청 실패했을경우.
+                    console.log(reject);
+                }
+            }); //XMLHttpRequest(); response(Text)
+        });
+
+        function successCallBack(result) {
+            let data = result;
+            //for(let i=0; i<data.length; i++) {
+            for (let row of data) { //data에 들은만큼 반복해 row에 담음. //data는 id:??, f_N:??, .. 형식으로 되어있음.
+                let div = $('<div />').attr('class', 'row').html('<span>' + row.id +
+                    '</span>&nbsp;&nbsp;&nbsp;<strong>' + row
+                    .first_name + ' - ' + row.last_name + '</strong>'); //attr => setAttribute(div태그 만들면서 속성줌.)
+                let btn = $('<button />').html('Del').on('click', delFnc);
+                $(div).append(btn);
+                $('#show').append(div);
+            }
+        };
+
+        function delFnc() {
+            console.log($(this).parent().remove());
+        };
+    </script>
+</head>
+
+<body>
+    <div id="show">
+        <div class="row">
+            <span>id</span>&nbsp;&nbsp;
+            <strong>first_name - last_name</strong>
+        </div>
+    </div>
+</body>
+
+</html>
