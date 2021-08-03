@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>board/commentList.html</title>
+<script>
+	//html(화면) <--> java(서블릿servlet, DAO) <--> DB(데이터베이스)
+	window.onload = function() { //on => 이벤트 관련 속성. ==> 페이지를 다 읽고 기능 실행.
+		loadCommentList();
+	}
+	//페이지가 실행되면 가장먼저 목록조회.
+	function loadCommentList() {
+		let xhtp = new XMLHttpRequest();
+		xhtp.open('get', '../CommentSevlet?cmd=selectAll');
+		xhtp.send();
+		/* xhtp.onload = function() { //값을 xml로 받아오면 실행할 기능.
+			console.log(xhtp.responseXML);//값 받아오는지 확인..
+		} */
+		xhtp.onload = loadCommentResult;
+	}
+	//목록조회 콜백.
+	function loadCommentResult() {
+		//console.log(this.responseXML); /* this => xhtp */
+		let xmlDoc = this.responseXML;
+		let code = xmlDoc.getElementsByTagName('code')[0].innerHTML; /* getElementsByTagName => collection으로 리턴되므로 몇번째인지 적어줘야함. */
+		console.log(code);
+		if (code == 'success') {
+			let commentList = xmlDoc.getElementsByTagName('row');
+			let listDiv = document.getElementById('commentList');
+			for (let i = 0; i < commentList.length; i++) { //row태그(id, name, content)를 가져와 commentList밑에 붙여넣음.
+				let commentDiv = makeCommentView(commentList[i]); //makeCommentView => row를 가져와서 commentDiv에 넣어주고 그것을 listDiv에 붙여넣음.
+				listDiv.appendChild(commentDiv);
+			}
+		} else if (code == 'error') {
+			let msg = xmlDoc.getElementsByTagName('data')[0].innerHTML;
+			window.alert(msg);
+		}
+	}
+	function makeCommentView(comment) {
+		let div = document.createElement('div');
+		let id = comment.children[0].innerHTML;
+		div.setAttribute('id', id); //0번째 => id값.
+		let str = '<strong>'
+				+ comment.children[1].innerHTML
+				+ '</strong>'
+				+ comment.children[2].innerHTML //이름, 내용
+				+ '<input type="button" value="수정" onclick="viewUpdateForm(' + id + ')">'
+				+ '<input type="button" value="삭제" onclick="confirmDeletion()">';
+		div.innerHTML = str;
+		return div;
+	}
+	//글등록.
+	function addComment() {
+		let name = document.addForm.name.value;
+		let content = document.addForm.content.value;
+		//사용자가 값 입력하도록 알려줌.
+		if (name == "") {
+			window.alert('이름을 입력하세요!')
+			document.addForm.name.focus();
+			return;
+		}
+		if (content == "") {
+			window.alert('내용을 입력하세요!')
+			document.addForm.content.focus();
+			return;
+		}
+		//입력처리
+		let xhtp = new XMLHttpRequest();
+		let url = '../CommentSevlet?cmd=insert&name=' + name + '&content='
+				+ content; //parametar가 여러개면 &로 연결해줌.
+		xhtp.open('get', url);
+		xhtp.send();
+		xhtp.onload = addResult;
+	}
+	// 댓글 등록하는 콜백함수.
+	function addResult() {
+		let xmlDoc = this.responseXML;
+		console.log(xmlDoc);
+		let code = xmlDoc.getElementsByTagName('code')[0].innerHTML;
+		if (code == 'success') {
+			let listDiv = document.getElementById('commentList');
+			let comment = xmlDoc.getElementsByTagName('data')[0];
+			let commentDiv = makeCommentView(comment); /* 화면에 있던 한건 받아서 추가 입력. */
+			listDiv.appendChild(commentDiv);
+
+		} else if (code == 'error') {
+			let msg = xmlDoc.getElementsByTagName('data')[0].innerHTML;
+			window.alert(msg);
+		}
+	}
+	//수정버튼 클릭시.
+	function viewUpdateForm(id) {
+		let updateFormDiv = document.getElementById('commentUpdate');
+		let commentDiv = document.getElementById(id); //makeCommentView에서 div.setAttribute('id', id); 이용한 것.
+		console.log(commentDiv);
+	}
+</script>
+</head>
+<body>
+	<!-- 댓글목록 -->
+	<div id='commentList'></div>
+
+	<!-- 댓글등록화면 -->
+	<div id='commentAdd'>
+		<form name='addForm' action=''>
+			이름: <input type='text' name='name' size='10'><br> 내용:
+			<textarea name='content' cols='20' rows='3'></textarea>
+			<br> <input type='button' value='등록' onclick='addComment()'>
+		</form>
+	</div>
+
+
+	<!-- 댓글수정화면 -->
+	<!-- 리스트를 보여주고 수정하도록. -->
+	<div id='commentUpdate' style="display: none;">
+		<!-- 초반엔 안보이도록. -->
+		<form name='updateForm' action=''>
+			<input type='hidden' name='id'>
+			<!-- hidden => 화면엔 안보이지만 속성을 가지고있음. -->
+			이름: <input type='text' name='name' size='10'><br> 내용:
+			<textarea name='content' cols='20' rows='3'></textarea>
+			<br> <input type='button' value='변경' onclick='updateComent()'>
+			<input type='button' value='취소' onclick='cancelUpdate()'>
+		</form>
+	</div>
+</body>
+</html>
