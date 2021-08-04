@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommentDAO extends DAO { 
+public class CommentDAO extends DAO { //db처리.
 	private static CommentDAO instance; // commentDAO class를 담아놓기 위한 static 타입의 instance 필드 선언.
 
 	private CommentDAO() {
@@ -15,6 +15,27 @@ public class CommentDAO extends DAO {
 	public static CommentDAO getInstance() { // 싱글톤방식
 		instance = new CommentDAO();
 		return instance;
+	}
+	// 글 삭제(매개값으로 글번호만 가져오면됨.)
+	public HashMap<String, Object> delete(String id) {
+		connect();
+		String sql = "delete from comments where id=?";
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			int r = pstmt.executeUpdate();
+			System.out.println("삭제: " + r);
+			
+			map.put("id", id); //정상실행되면 id값 넘겨줌.
+			return map;
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			disconnect();
+		}
+		return null; //예외 발생시 null값 출력.
 	}
 
 	// 글 내용 수정.

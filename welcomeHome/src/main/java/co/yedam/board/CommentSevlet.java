@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 @WebServlet("/CommentSevlet")
 public class CommentSevlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,9 +32,16 @@ public class CommentSevlet extends HttpServlet {
 		String cmd = request.getParameter("cmd");
 
 		if (cmd == null) {
-			out.println(errorXML("cmd null")); //cmd값이 없으면 에러.
+			out.println(errorXML("cmd null")); // cmd값이 없으면 에러.
 
-		} else if (cmd.equals("selectAll")) { //1)전체조회
+		} else if (cmd.equals("selectJson")) {
+			response.setContentType("text/json;charset=utf-8");
+			List<HashMap<String, Object>> list = CommentDAO.getInstance().selectAll();
+			Gson gson = new GsonBuilder().create();
+			String json = gson.toJson(list);
+			out.println(json);
+
+		} else if (cmd.equals("selectAll")) { // 1)전체조회
 			try {
 				List<HashMap<String, Object>> list = CommentDAO.getInstance().selectAll();
 				StringBuffer sb = new StringBuffer();
@@ -59,28 +69,65 @@ public class CommentSevlet extends HttpServlet {
 				comment.setName(name);
 				comment.setContent(content);
 				HashMap<String, Object> map = CommentDAO.getInstance().insert(comment); // insert리턴타입 => HashMap.
-				
+
 				out.println(dataXML(map));
-				
+
 			} catch (Exception e) {
 				out.println(errorXML(e.getMessage()));
 			}
-		} else if(cmd.equals("update")) { //3)수정.
+		} else if (cmd.equals("insertJson")) {
+			response.setContentType("text/json;charset=utf-8");
+			String name = request.getParameter("name");
+			String content = request.getParameter("content");
+			Comment comment = new Comment();
+			comment.setName(name);
+			comment.setContent(content);
+			HashMap<String, Object> map = CommentDAO.getInstance().insert(comment);
+			Gson gson = new GsonBuilder().create();
+			out.println(gson.toJson(map));
+
+		} else if (cmd.equals("update")) { // 3)수정.
 			String id = request.getParameter("id");
 			String name = request.getParameter("name");
 			String content = request.getParameter("content");
-			
+
 			Comment comment = new Comment();
 			comment.setId(id);
 			comment.setName(name);
 			comment.setContent(content);
-			
+
 			HashMap<String, Object> map = CommentDAO.getInstance().update(comment);
+
 			out.println(dataXML(map));
+			
+		} else if (cmd.equals("updateJson")) {
+			response.setContentType("text/json;charset=utf-8");
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String content = request.getParameter("content");
+			Comment comment = new Comment();
+			comment.setId(id);
+			comment.setName(name);
+			comment.setContent(content);
+			HashMap<String, Object> map = CommentDAO.getInstance().update(comment);
+			Gson gson = new GsonBuilder().create();
+			out.println(gson.toJson(map));
+
+		} else if (cmd.equals("deleteJson")) {
+			response.setContentType("text/json;charset=utf-8");
+			String id = request.getParameter("id");
+			HashMap<String, Object> map = CommentDAO.getInstance().delete(id);
+			Gson gson = new GsonBuilder().create();
+			out.println(gson.toJson(map));
+
+		} else if (cmd.equals("delete")) { // 4)삭제.
+			String id = request.getParameter("id");
+			HashMap<String, Object> map = CommentDAO.getInstance().delete(id);
+			out.println(dataXML(map)); // 받아온것을 xml타입으로 변환하여 화면에 출력.
 		}
 	} // end of doGet();
-	
-	private String dataXML(HashMap<String, Object> map) { //결과값을 다시 받아옴.
+
+	private String dataXML(HashMap<String, Object> map) { // 결과값을 다시 받아옴.
 		StringBuffer sb = new StringBuffer();
 		sb.append("<result>");
 		sb.append("<code>success</code>");
@@ -92,14 +139,14 @@ public class CommentSevlet extends HttpServlet {
 		sb.append("</result>");
 		return sb.toString();
 	}
-	
-	private String errorXML(String msg) { //에러발생시.
+
+	private String errorXML(String msg) { // 에러발생시.
 		StringBuffer sb = new StringBuffer();
 		sb.append("<result>");
 		sb.append("<code>error</code>");
 		sb.append("<data>" + msg + "</data>");
 		sb.append("</result>");
-		
+
 		return sb.toString();
 	}
 
