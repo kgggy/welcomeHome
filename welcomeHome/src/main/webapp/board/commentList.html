@@ -120,7 +120,7 @@
 		xhtp.send();
 		xhtp.onload = updateResult; //콜백함수(정상처리되면 화면에서 바꿔주기.)
 	}
-	//댓글수정 콜백함수.
+	//변경 콜백함수.
 	function updateResult() {
 		console.log(this.responseXML);
 		let xmlDoc = this.responseXML;
@@ -130,7 +130,7 @@
 			let commentDiv = makeCommentView(comment); /* 화면에 있던 한건 받아서 추가 입력. */
 			let id = commentDiv.getAttribute('id'); //commentDiv의 id속성을 가져옴.(id를가지고 div를 가져오기위해.)
 			let oldDiv = document.getElementById(id);
-			// replaceChild => 
+			// replaceChild => 자식을 교체.
 			let parent = document.getElementById('commentList');
 			parent.replaceChild(commentDiv, oldDiv);
 			//다 수정하고 나면 수정화면 숨기고 등록화면 보이도록.

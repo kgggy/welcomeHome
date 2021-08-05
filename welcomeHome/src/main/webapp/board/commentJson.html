@@ -25,7 +25,7 @@
 		});
 	}
 
-	//리스트 보여주는 콜백함수.
+	//리스트 보여주는 콜백함수.(콜백함수는 resolve 저걸 담고있어야함!!(위에서 받은 내용 담고있는것.))
 	function loadCommentResult(resolve) {
 		//console.log(resolve); //resolve => 데이터를 담고있다는걸 알 수 있음.
 		//makecommentView와 같은 역할.
@@ -46,6 +46,9 @@
 	//원하는 모양으로 정의할 수 있음(loadCommentResult는 임의로 정할 수 없었음.)
 	function makeCommentView(comment) { //comment => {id:?, name:?, content:?}형태.
 		let div = $('<div />').attr('id', comment.id);
+		$(div).attr('data-id', comment.id)
+		$(div).attr('data-name', comment.name)
+		$(div).attr('data-content', comment.content)
 		let strong = $('<strong />').html(comment.name);
 		let span = $('<span />').html(comment.content);
 		let updateBtn = $(
@@ -106,13 +109,29 @@
 
 	}
 	//수정버튼 클릭.
-	function viewUpdateForm() {
-		let name = document.addForm.name.value;
-		let content = document.addForm.content.value;
+	function viewUpdateForm(id) {
+		//let updateFormDiv = $('#commentUpdate');//수정화면.
+		let commentDiv = $('#' + id);
+		console.log(commentDiv);
+		updateForm.id.value = $(commentDiv).attr('data-id');//attr => ()면 그 값을 불러오고 ( , )면 속성을 부여해줌.
+		updateForm.name.value = $(commentDiv).attr('data-name');
+		updateForm.content.value = $(commentDiv).attr('data-content');
+		$('#commentUpdate').css('display', 'block');
+		$('#commentUpdate').insertAfter($(commentDiv));
+		$('#commentAdd').css('display', 'none');
+
+	}
+	//변경버튼 클릭시.
+	function updateComment() {
+		//db변경.
+		let id = updateForm.id.value;
+		let name = document.updateForm.name.value;
+		let content = document.updateForm.content.value;
 		$.ajax({
 			url : '../CommentSevlet',
 			data : {
 				cmd : 'updateJson',
+				id : id,
 				name : name,
 				content : content
 			},
@@ -122,11 +141,25 @@
 			}
 		});
 	}
-	//수정 콜백.
-	function updateResult() {
-		
+	//변경 콜백.
+	function updateResult(resolve) {
+		//let comment = $.ajax('data')[0];	
+		console.log(resolve);
+		let commentDiv = makeCommentView(resolve); /* 화면에 있던 한건 받아서 추가 입력. */
+		let oldDiv = $('#' + resolve.id);
+		console.log(oldDiv);
+		// replaceChild => 
+		oldDiv.replaceWith(commentDiv)
+		$("#commentUpdate").css('display', 'none'); //css => style지정.
+		$("#commentAdd").css('display', 'block');
 	}
-		
+
+	//취소버튼 클릭시.
+	function cancelUpdate() {
+		$("#commentUpdate").hide();
+		$("#commentAdd").show();
+	}
+
 	//삭제버튼 클릭.
 	function confirmDeletion(id) {
 		$.ajax({
