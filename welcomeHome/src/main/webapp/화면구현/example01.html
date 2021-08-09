@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>
+        //japascript로 ajax호출하는 방법.
+        //   document.addEventListener('DOMContentLoaded', function () { //페이지가 모두 읽어진 다음 기능 실행하도록 함.(id 찾기위해.)
+        // let xhtp = new XMLHttpRequest();
+        // xhtp.open('get', 'members.json');
+        // xhtp.send();
+        // xhtp.onload = function () {
+        //     console.log(xhtp);
+        //     console.log(JSON.parse(xhtp.responseText));
+        //     let showDiv = document.getElementById('show'); 
+        //     let data = JSON.parse(xhtp.responseText);
+        //         let tbody = document.querySelector('#list > tbody');
+        //         for (let i = 0; i < data.length; i++) {
+        //             let newTr = makeRow(data[i]);
+        //             tbody.appendChild(newTr);
+        //         }             
+        //         document.getElementById('list').setAttribute('border', '1');
+        //     };
+        // });
+
+        //jquery로 ajax호출하는 방법.
+        $(document).ready(function () {
+            $.ajax({ //$.ajax => 모든 메소드포함.
+                url: 'members.json', //요청하는 페이지.
+
+                method: 'get', //요청방식.(default값은 get)
+                dataType: 'json', //parcing해줌.
+                //dataType: 'Text',
+                success: successCallBack, //요청페이지를 정상실행했을 경우.
+                error: function (reject) { //요청 실패했을경우.
+                    console.log(reject);
+                }
+            }); //XMLHttpRequest(); response(Text)
+        });
+
+        function successCallBack(result) {
+            let data = result;
+            //for(let i=0; i<data.length; i++) {
+            for (let row of data) { //data에 들은만큼 반복해 row에 담음. //data는 id:??, f_N:??, .. 형식으로 되어있음.                
+                let tr = $('<tr>')
+                let td = $('<td>').html(row.mem_id);
+                let td1 = $('<td>').html(row.first_name);
+                let td2 = $('<td>').html(row.last_name);
+                let td3 = $('<td>').html(row.email);
+                let td4 = $('<td>').html(row.gender);
+                let td5 = $('<td>').html(row.address);
+                $(tr).append(td,td1,td2,td3,td4,td5);
+                $('#list').append(tr);
+            }
+        };
+    </script>
+</head>
+
+<body>
+    <div id="show">
+        <table id='list'>
+            <thead>
+                <tr>
+                    <th>번호</th>
+                    <th>성</th>
+                    <th>이름</th>
+                    <th>이메일</th>
+                    <th>성별</th>
+                    <th>주소</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
